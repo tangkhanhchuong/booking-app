@@ -12,7 +12,7 @@ public interface RoomService {
 
     public Room getRoomDetail(UUID id);
 
-    public BaseCRUDResponseDTO createRoom(CreateRoomRequestDTO bodyDTO);
+    public BaseCRUDResponseDTO createRoom(CreateRoomRequestDTO bodyDTO, UUID userId);
 
     public BaseCRUDResponseDTO updateRoom(UUID id);
 

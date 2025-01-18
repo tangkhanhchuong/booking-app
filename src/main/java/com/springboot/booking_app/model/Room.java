@@ -49,6 +49,11 @@ public class Room {
     @JsonProperty("building")
     private Building building;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    @JsonProperty("owner")
+    private User owner;
+
     @CreationTimestamp
     private Instant createdAt;
 

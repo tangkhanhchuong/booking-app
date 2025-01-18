@@ -1,5 +1,6 @@
 package com.springboot.booking_app.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,6 +43,11 @@ public class Building {
 
     @Column(name = "longitude")
     private Float longitude;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    @JsonProperty("owner")
+    private User owner;
 
     @CreationTimestamp
     private Instant createdAt;

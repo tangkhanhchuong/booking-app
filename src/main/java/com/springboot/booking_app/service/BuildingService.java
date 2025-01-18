@@ -1,7 +1,9 @@
 package com.springboot.booking_app.service;
 
+import com.springboot.booking_app.dto.request.BaseListingAndSortingRequestDTO;
 import com.springboot.booking_app.dto.request.CreateBuildingRequestDTO;
 import com.springboot.booking_app.dto.response.BaseCRUDResponseDTO;
+import com.springboot.booking_app.dto.response.BuildingResponseDTO;
 import com.springboot.booking_app.dto.response.PageResponseDTO;
 import com.springboot.booking_app.dto.response.RoomResponseDTO;
 import com.springboot.booking_app.model.Building;
@@ -11,13 +13,13 @@ import java.util.UUID;
 
 public interface BuildingService {
 
-    public List<Building> listBuildings();
+    public PageResponseDTO<BuildingResponseDTO> listBuildings(BaseListingAndSortingRequestDTO queryDTO);
 
-    public PageResponseDTO<RoomResponseDTO> listRoomsOfBuilding(UUID buildingId);
+    public PageResponseDTO<RoomResponseDTO> listRoomsOfBuilding(UUID buildingId, BaseListingAndSortingRequestDTO queryDTO);
 
     public Building getBuildingDetail(UUID id);
 
-    public BaseCRUDResponseDTO createBuilding(CreateBuildingRequestDTO bodyDTO);
+    public BaseCRUDResponseDTO createBuilding(CreateBuildingRequestDTO bodyDTO, UUID ownerId);
 
     public Building updateBuilding(UUID id);
 

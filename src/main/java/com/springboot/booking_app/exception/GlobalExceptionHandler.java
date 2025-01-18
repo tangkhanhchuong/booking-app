@@ -3,7 +3,6 @@ package com.springboot.booking_app.exception;
 import com.springboot.booking_app.exception.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,7 +21,7 @@ public class GlobalExceptionHandler {
         RoomExistedException.class, HttpStatus.CONFLICT,
         InvalidLoginException.class, HttpStatus.UNAUTHORIZED,
         UserExistedException.class, HttpStatus.CONFLICT,
-        AuthorizationDeniedException.class, HttpStatus.FORBIDDEN
+        AuthorizationDeniedException.class, HttpStatus.UNAUTHORIZED
     );
 
     private static final Map<Class<? extends RuntimeException>, String> EXCEPTION_TO_ERROR_CODE = Map.of(
@@ -32,7 +31,7 @@ public class GlobalExceptionHandler {
         RoomExistedException.class, "ROOM_EXISTED",
         InvalidLoginException.class, "INVALID_LOGIN",
         UserExistedException.class, "USER_EXISTED",
-        AuthorizationDeniedException.class, "ACCESS_DENIED"
+        AuthorizationDeniedException.class, "UNAUTHORIZED"
     );
 
     @ExceptionHandler()
