@@ -1,18 +1,20 @@
 package com.springboot.booking_app.model;
 
 import com.springboot.booking_app.util.UserRole;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.UUID;
 
-@Data
+@Getter
 @Builder
-public class LandlordTokenPayload {
+public class LandlordTokenPayload extends BaseTokenPayload {
 
+    @NotNull
     UUID userId;
 
-    UserRole role = UserRole.LANDLORD;
-
+    @NotNull
+    final UserRole role = UserRole.LANDLORD;
 
 }

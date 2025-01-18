@@ -5,6 +5,7 @@ import com.springboot.booking_app.dto.response.BaseCRUDResponseDTO;
 import com.springboot.booking_app.dto.response.PageResponseDTO;
 import com.springboot.booking_app.dto.response.RoomResponseDTO;
 import com.springboot.booking_app.model.Building;
+import com.springboot.booking_app.model.LandlordTokenPayload;
 import com.springboot.booking_app.model.TenantTokenPayload;
 import com.springboot.booking_app.service.BuildingService;
 import jakarta.validation.Valid;
@@ -54,7 +55,7 @@ public class BuildingController {
     @PreAuthorize("hasRole('LANDLORD')")
     public ResponseEntity<PageResponseDTO<RoomResponseDTO>> listRoomsOfBuilding(
             @PathVariable UUID id,
-            @AuthenticationPrincipal TenantTokenPayload tenantTokenPayload
+            @AuthenticationPrincipal LandlordTokenPayload landlordTokenPayload
     ){
         return ResponseEntity.ok(buildingService.listRoomsOfBuilding(id));
     }

@@ -1,19 +1,19 @@
 package com.springboot.booking_app.model;
 
 import com.springboot.booking_app.util.UserRole;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
 
 import java.util.UUID;
 
-@Getter
-@Builder
-public class TenantTokenPayload extends BaseTokenPayload {
+public abstract class BaseTokenPayload {
 
     @NotNull
     UUID userId;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
-    final UserRole role = UserRole.TENANT;
+    UserRole role;
+
 }
