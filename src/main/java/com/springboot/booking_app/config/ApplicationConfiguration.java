@@ -1,7 +1,7 @@
 package com.springboot.booking_app.config;
 
 import com.springboot.booking_app.exception.exception.InvalidLoginException;
-import com.springboot.booking_app.repository.UserRepository;
+import com.springboot.booking_app.module.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

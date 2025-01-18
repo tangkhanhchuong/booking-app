@@ -1,12 +1,12 @@
 package com.springboot.booking_app.filter;
 
-import com.springboot.booking_app.model.BaseTokenPayload;
-import com.springboot.booking_app.model.LandlordTokenPayload;
-import com.springboot.booking_app.model.TenantTokenPayload;
-import com.springboot.booking_app.model.User;
-import com.springboot.booking_app.service.JwtService;
-import com.springboot.booking_app.service.UserService;
-import com.springboot.booking_app.util.UserRole;
+import com.springboot.booking_app.shared.auth.BaseTokenPayload;
+import com.springboot.booking_app.shared.auth.LandlordTokenPayload;
+import com.springboot.booking_app.shared.auth.TenantTokenPayload;
+import com.springboot.booking_app.entity.User;
+import com.springboot.booking_app.module.auth.service.JwtService;
+import com.springboot.booking_app.module.user.service.UserService;
+import com.springboot.booking_app.shared.UserRole;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -25,7 +24,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Map;
 import java.util.UUID;
 
 @Component

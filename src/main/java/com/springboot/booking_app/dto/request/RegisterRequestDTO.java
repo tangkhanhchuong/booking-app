@@ -1,6 +1,6 @@
 package com.springboot.booking_app.dto.request;
 
-import com.springboot.booking_app.util.UserRole;
+import com.springboot.booking_app.shared.UserRole;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;

@@ -1,7 +1,7 @@
 package com.springboot.booking_app.dto.response;
 
-import com.springboot.booking_app.util.RoomSize;
-import com.springboot.booking_app.util.RoomType;
+import com.springboot.booking_app.shared.RoomSize;
+import com.springboot.booking_app.shared.RoomType;
 import lombok.Builder;
 import lombok.Data;
 

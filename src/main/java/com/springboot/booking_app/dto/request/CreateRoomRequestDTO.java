@@ -1,7 +1,7 @@
 package com.springboot.booking_app.dto.request;
 
-import com.springboot.booking_app.util.RoomSize;
-import com.springboot.booking_app.util.RoomType;
+import com.springboot.booking_app.shared.RoomSize;
+import com.springboot.booking_app.shared.RoomType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
