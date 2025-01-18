@@ -1,12 +1,15 @@
 package com.springboot.booking_app.filter;
 
-import com.springboot.booking_app.shared.auth.BaseTokenPayload;
-import com.springboot.booking_app.shared.auth.LandlordTokenPayload;
-import com.springboot.booking_app.shared.auth.TenantTokenPayload;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.booking_app.entity.User;
+import com.springboot.booking_app.exception.exception.UnauthorizedException;
 import com.springboot.booking_app.module.auth.service.JwtService;
+import com.springboot.booking_app.module.auth.service.SessionService;
 import com.springboot.booking_app.module.user.service.UserService;
 import com.springboot.booking_app.shared.UserRole;
+import com.springboot.booking_app.shared.auth.*;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,14 +19,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -36,6 +39,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SessionService sessionService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     protected void doFilterInternal(
@@ -55,18 +64,23 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         final String jwt = authHeader.split("Bearer ")[1];
-        final String userId = jwtService.extractSubject(jwt);
+        final Claims claims = jwtService.extractAllClaims(jwt);
+        final String key = claims.getSubject();
+        final String userId = claims.get("userId", String.class);
+        final UserRole role = claims.get("type", String.class).equals("LANDLORD") ? UserRole.LANDLORD : UserRole.TENANT;
 
         if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            User user = this.userService.findUserById(UUID.fromString(userId));
-            Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+            String rawSessionPayload = sessionService.getSession(key);
+            if (rawSessionPayload == null) {
+                throw new UnauthorizedException();
+            }
 
-            BaseTokenPayload tokenPayload = mapTokenPayload(user.getId(), user.getRole());
-
+            BaseSessionPayload sessionPayload = readRawSessionPayload(rawSessionPayload, role);
+            BaseTokenPayload tokenPayload = mapTokenPayload(UUID.fromString(userId), role);
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 tokenPayload,
                 null,
-                authorities
+                List.of(new SimpleGrantedAuthority("ROLE_" + role.name()))
             );
             authToken.setDetails(
                     new WebAuthenticationDetailsSource().buildDetails(request)
@@ -80,6 +94,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         return switch (role) {
             case LANDLORD -> LandlordTokenPayload.builder().userId(userId).build();
             case TENANT -> TenantTokenPayload.builder().userId(userId).build();
+            default -> null;
+        };
+    }
+
+    private BaseSessionPayload readRawSessionPayload(String rawPayload, UserRole role) throws JsonProcessingException {
+        return switch (role) {
+            case LANDLORD -> objectMapper.readValue(rawPayload, LandlordSessionPayload.class);
+            case TENANT -> objectMapper.readValue(rawPayload, TenantSessionPayload.class);
             default -> null;
         };
     }

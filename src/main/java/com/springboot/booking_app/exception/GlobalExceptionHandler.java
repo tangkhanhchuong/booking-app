@@ -21,7 +21,8 @@ public class GlobalExceptionHandler {
         RoomExistedException.class, HttpStatus.CONFLICT,
         InvalidLoginException.class, HttpStatus.UNAUTHORIZED,
         UserExistedException.class, HttpStatus.CONFLICT,
-        AuthorizationDeniedException.class, HttpStatus.UNAUTHORIZED
+        AuthorizationDeniedException.class, HttpStatus.UNAUTHORIZED,
+        UnauthorizedException.class, HttpStatus.UNAUTHORIZED
     );
 
     private static final Map<Class<? extends RuntimeException>, String> EXCEPTION_TO_ERROR_CODE = Map.of(
@@ -31,7 +32,8 @@ public class GlobalExceptionHandler {
         RoomExistedException.class, "ROOM_EXISTED",
         InvalidLoginException.class, "INVALID_LOGIN",
         UserExistedException.class, "USER_EXISTED",
-        AuthorizationDeniedException.class, "UNAUTHORIZED"
+        AuthorizationDeniedException.class, "UNAUTHORIZED",
+        UnauthorizedException.class, "UNAUTHORIZED"
     );
 
     @ExceptionHandler()

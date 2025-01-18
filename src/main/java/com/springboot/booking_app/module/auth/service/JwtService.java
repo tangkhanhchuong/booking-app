@@ -1,16 +1,15 @@
 package com.springboot.booking_app.module.auth.service;
 
 import com.springboot.booking_app.shared.UserRole;
+import io.jsonwebtoken.Claims;
 
 import java.util.UUID;
 
 public interface JwtService {
 
-    String generateToken(UUID userId, UserRole role);
+    String generateToken(String key, UUID userId, UserRole role);
 
-    String extractUsername(String token);
-
-    String extractSubject(String token);
+    public Claims extractAllClaims(String token);
 
     boolean isTokenExpired(String token);
 }

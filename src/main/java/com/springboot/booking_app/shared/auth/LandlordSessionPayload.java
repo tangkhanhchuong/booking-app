@@ -1,15 +1,15 @@
 package com.springboot.booking_app.shared.auth;
 
 import com.springboot.booking_app.shared.UserRole;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.UUID;
 
 @Getter
-public abstract class BaseTokenPayload {
+@Builder
+public class LandlordSessionPayload extends BaseSessionPayload {
 
     @NotNull
     String key;
@@ -17,8 +17,6 @@ public abstract class BaseTokenPayload {
     @NotNull
     UUID userId;
 
-    @Enumerated(EnumType.STRING)
     @NotNull
-    UserRole role;
-
+    final UserRole role = UserRole.LANDLORD;
 }

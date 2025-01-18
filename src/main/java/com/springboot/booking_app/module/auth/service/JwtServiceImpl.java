@@ -25,9 +25,10 @@ public class JwtServiceImpl implements JwtService {
     private int ACCESS_TOKEN_LIFESPAN;
 
     @Override
-    public String generateToken(UUID userId, UserRole role) {
+    public String generateToken(String key, UUID userId, UserRole role) {
         return Jwts.builder()
-                .setSubject(userId.toString())
+                .setSubject(key)
+                .claim("key", key)
                 .claim("userId", userId)
                 .claim("type", role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -41,16 +42,7 @@ public class JwtServiceImpl implements JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    @Override
-    public String extractUsername(String token) {
-        return extractAllClaims(token).getSubject();
-    }
-
-    public String extractSubject(String token) {
-        return extractAllClaims(token).getSubject();
-    }
-
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()

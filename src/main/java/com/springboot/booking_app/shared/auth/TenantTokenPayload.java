@@ -12,6 +12,9 @@ import java.util.UUID;
 public class TenantTokenPayload extends BaseTokenPayload {
 
     @NotNull
+    String key;
+
+    @NotNull
     UUID userId;
 
     @NotNull

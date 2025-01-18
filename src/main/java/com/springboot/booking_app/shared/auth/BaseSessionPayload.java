@@ -9,7 +9,7 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter
-public abstract class BaseTokenPayload {
+public abstract class BaseSessionPayload {
 
     @NotNull
     String key;
