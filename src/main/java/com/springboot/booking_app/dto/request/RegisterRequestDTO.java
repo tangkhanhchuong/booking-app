@@ -6,7 +6,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 public class RegisterRequestDTO {
@@ -40,4 +42,5 @@ public class RegisterRequestDTO {
 
     @NotNull
     private boolean isMale = true;
+
 }

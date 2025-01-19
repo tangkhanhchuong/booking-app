@@ -21,7 +21,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Booking {
     @Id
-    @Column(name = "id", columnDefinition = "UUID")
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne
@@ -35,7 +36,13 @@ public class Booking {
     private Room room;
 
     @Column(name = "status")
-    private BookingStatus status = BookingStatus.NEW;
+    private String status = BookingStatus.NEW.toString();
+
+    @Column(name = "start_at")
+    private Instant startAt;
+
+    @Column(name = "end_at")
+    private Instant endAt;
 
     @Column(name = "paid_at")
     private Instant paidAt;
