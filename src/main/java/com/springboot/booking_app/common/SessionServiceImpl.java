@@ -1,4 +1,4 @@
-package com.springboot.booking_app.module.auth.service;
+package com.springboot.booking_app.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

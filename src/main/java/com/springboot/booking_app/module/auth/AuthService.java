@@ -1,4 +1,4 @@
-package com.springboot.booking_app.module.auth.service;
+package com.springboot.booking_app.module.auth;
 
 import com.springboot.booking_app.dto.request.LoginRequestDTO;
 import com.springboot.booking_app.dto.request.RegisterRequestDTO;

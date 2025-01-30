@@ -1,4 +1,4 @@
-package com.springboot.booking_app.module.auth.service;
+package com.springboot.booking_app.common;
 
 public interface SessionService {
 

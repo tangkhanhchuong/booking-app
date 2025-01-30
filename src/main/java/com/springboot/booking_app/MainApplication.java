@@ -2,12 +2,14 @@ package com.springboot.booking_app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-public class BookingAppApplication {
+@EnableFeignClients
+public class MainApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookingAppApplication.class, args);
+		SpringApplication.run(MainApplication.class, args);
 	}
 
 }

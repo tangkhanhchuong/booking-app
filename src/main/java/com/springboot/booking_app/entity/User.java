@@ -59,7 +59,7 @@ public class User implements UserDetails {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private UserRole role = UserRole.TENANT;
 
     @CreationTimestamp
     private Instant createdAt;

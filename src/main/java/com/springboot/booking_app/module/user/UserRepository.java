@@ -1,4 +1,4 @@
-package com.springboot.booking_app.module.user.repository;
+package com.springboot.booking_app.module.user;
 
 import com.springboot.booking_app.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

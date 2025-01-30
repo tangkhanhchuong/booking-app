@@ -2,11 +2,9 @@ package com.springboot.booking_app.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springboot.booking_app.entity.User;
+import com.springboot.booking_app.common.JwtService;
+import com.springboot.booking_app.common.SessionService;
 import com.springboot.booking_app.exception.exception.UnauthorizedException;
-import com.springboot.booking_app.module.auth.service.JwtService;
-import com.springboot.booking_app.module.auth.service.SessionService;
-import com.springboot.booking_app.module.user.service.UserService;
 import com.springboot.booking_app.shared.UserRole;
 import com.springboot.booking_app.shared.auth.*;
 import io.jsonwebtoken.Claims;
@@ -36,9 +34,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtService jwtService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private SessionService sessionService;
